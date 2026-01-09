@@ -5,9 +5,9 @@ import pyarabic.araby as araby
 # Constants
 # Path to the fine-tuned model (output of train_gec.py)
 # If running before training, one could test with the base model, but instruction says "test the fine-tuned model"
-MODEL_PATH = r"c:\Users\Mrh\Documents\Fam\gec_model_output"
+MODEL_PATH = "gec_model_output"
 # Fallback to base model if fine-tuned doesn't exist yet for testing the script logic
-BASE_MODEL = "aubmindlab/arat5-v2-base"
+BASE_MODEL = "UBC-NLP/AraT5v2-base-1024"
 
 def load_model(path):
     print(f"Loading model from {path}...")

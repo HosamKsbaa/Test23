@@ -15,9 +15,9 @@ from transformers import (
 )
 
 # Constants
-MODEL_NAME = "aubmindlab/arat5-v2-base"
-DATA_FILE = r"c:\Users\Mrh\Documents\Fam\qalb_full_gec.csv"
-OUTPUT_DIR = r"c:\Users\Mrh\Documents\Fam\gec_model_output"
+MODEL_NAME = "UBC-NLP/AraT5v2-base-1024"
+DATA_FILE = "qalb_full_gec.csv"
+OUTPUT_DIR = "gec_model_output"
 MAX_LENGTH = 128
 PREFIX = "gec_arabic: "
 

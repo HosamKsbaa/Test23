@@ -120,11 +120,21 @@ def apply_edits(source_sentence, edits):
     return " ".join(tokens)
 
 if __name__ == "__main__":
-    # Define paths
-    # Using absolute paths based on previous file finding
-    # Double nesting confirmed
-    base_dir = r"c:\Users\Mrh\Documents\Fam\QALB-0.9.1-Dec03-2021-SharedTasks\QALB-0.9.1-Dec03-2021-SharedTasks\data\2015\dev"
-    m2_file = os.path.join(base_dir, "QALB-2015-L2-Dev.m2")
-    output_file = r"c:\Users\Mrh\Documents\Fam\qalb_full_gec.csv"
+    # Dynamic path finding for robustness (Local vs Colab)
+    base_search_dir = "."
+    m2_filename = "QALB-2015-L2-Dev.m2"
+    m2_file_path = None
+
+    print(f"Searching for {m2_filename} in {os.path.abspath(base_search_dir)}...")
+    for root, dirs, files in os.walk(base_search_dir):
+        if m2_filename in files:
+            m2_file_path = os.path.join(root, m2_filename)
+            break
     
-    parse_m2_file(m2_file, output_file)
+    if m2_file_path:
+        print(f"Found M2 file: {m2_file_path}")
+        output_file = "qalb_full_gec.csv"
+        parse_m2_file(m2_file_path, output_file)
+    else:
+        print(f"Error: Could not find {m2_filename} in current directory or subdirectories.")
+        print("Ensure you have downloaded and extracted the dataset.")
