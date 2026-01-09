@@ -1,4 +1,7 @@
 import os
+# Must be set before transformers imports or Trainer init to be fully effective
+os.environ["WANDB_DISABLED"] = "true"
+
 import torch
 import numpy as np
 import pyarabic.araby as araby
@@ -124,8 +127,7 @@ def train():
         logging_steps=10,
         eval_steps=50,
         use_cpu=not torch.cuda.is_available(), 
-        # For verification, we might want to run fewer steps if this is a test run
-        # but the request was "write a script... num_train_epochs=5"
+        report_to="none", # Disable wandb/mlflow prompts
     )
     
     trainer = Seq2SeqTrainer(
@@ -133,7 +135,7 @@ def train():
         args=training_args,
         train_dataset=tokenized_datasets["train"],
         eval_dataset=tokenized_datasets["test"],
-        tokenizer=tokenizer,
+        processing_class=tokenizer, # Replaces deprecated tokenizer argument
         data_collator=data_collator,
         compute_metrics=lambda x: compute_metrics(x, tokenizer),
     )
